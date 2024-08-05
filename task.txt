@@ -1,0 +1,29 @@
+Hello Benjamin,
+
+We would like to have give you an opportunity, 
+to play around with some open-source data, that is like our work.
+
+Please use Python 3.x version (you are free to use any open source Py 
+or c++ packages) to work with Lidar data and Radar data in the 
+nuScenes https://www.nuscenes.org/nuscenes#download dataset.
+
+Please do the following tasks:
+
+Write a program to 
+
+- visualize Surround camera images in window 1 
+- visualize Lidar and Radar data in window 2
+
+You may use any open-source lib. to cluster the lidar data per 
+timeframe and visualize them in the window 2.
+
+You may take a week time to work on this task and let us discuss your results say on 09.08. 15 hrs, is it ok for you?
+
+You have to submit your source code and results for our 2nd discussion.
+
+Meanwhile if you have any questions on this task, you may write to us, either one of us would respond to your question.
+
+Thank you, have fun,
+
+Bharani.
+
