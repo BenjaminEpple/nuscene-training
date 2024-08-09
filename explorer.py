@@ -271,6 +271,3 @@ class CustomExplorer(NuScenesExplorer):
 
         if verbose:
             plt.show()
-
-        # if verbose:
-        #    plt.show()

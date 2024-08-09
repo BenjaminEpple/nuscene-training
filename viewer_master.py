@@ -4,7 +4,7 @@ import sys
 
 from nuscenes import NuScenes
 from pynput import keyboard
-from typing import List
+from typing import List, Union
 
 from viewer.worker import (
     SCENE_OPTION,
@@ -17,6 +17,16 @@ from viewer.worker import (
     SENSOR_TYPE_LIDAR_RADAR,
     SENSOR_TYPE_OPTION,
 )
+
+
+def get_next_sample_token(nusc, sample_token: str) -> Union[str, None]:
+    sample = nusc.get("sample", sample_token)
+    return sample.get("next", None)
+
+
+def get_previous_sample_token(nusc, sample_token: str) -> Union[str, None]:
+    sample = nusc.get("sample", sample_token)
+    return sample.get("prev", None)
 
 
 def parse_args():
@@ -76,10 +86,22 @@ class MasterViewer:
         try:
             if key == keyboard.Key.left:
                 print("You pressed the left arrow key!")
-                print(self.camera_window.communicate())
-                print(self.lidar_radar_window.communicate())
+                previous = get_previous_sample_token(self.nusc, self.sample_token)
+                if previous is not None:
+                    self.sample_token = previous
+                    self.update_windows()
+                else:
+                    print("There is no previous sample token.")
+
             elif key == keyboard.Key.right:
                 print("You pressed the right arrow key!")
+                next = get_next_sample_token(self.nusc, self.sample_token)
+                if next is not None:
+                    self.sample_token = next
+                    self.update_windows()
+                else:
+                    print("There is no next sample token.")
+
         except AttributeError:
             pass
 
@@ -117,6 +139,8 @@ class MasterViewer:
         for proc in self.camera_window, self.lidar_radar_window:
             if proc is not None:
                 proc.kill()
+        self.camera_window = None
+        self.lidar_radar_window = None
 
 
 def main():
@@ -126,7 +150,7 @@ def main():
     # Set up the listener
     listener = keyboard.Listener(on_press=viewer.on_press)
     listener.start()
-    print("Press left or right arrow keys")
+    print("Press left or right arrow keys.")
 
     # Keep the script running to listen for key presses
     listener.join()
