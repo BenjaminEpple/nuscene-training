@@ -10,7 +10,7 @@ from nuscenes.nuscenes import NuScenes
 
 from explorer import CustomExplorer
 
-ROOT_DIR = Path(__file__).parent / "data" / "sets" / "nuscenes"
+ROOT_DIR = Path(__file__).parent.parent / "data" / "sets" / "nuscenes"
 
 
 # Define constants for option keys
@@ -210,18 +210,17 @@ if __name__ == "__main__":
 
     nusc = NuScenes(version="v1.0-mini", dataroot=ROOT_DIR.as_posix(), verbose=True)
 
+    print(f"Using scene number {args.scene}.")
     my_scene: dict = nusc.scene[args.scene]
+
     explorer = CustomExplorer(nusc)
 
     # get screen sample token to render
     if not args.token:
         first_sample_token = my_scene["first_sample_token"]
     else:
-        try:
-            first_sample_token = my_scene[args.token]
-        except AttributeError:
-            print("Error: Did not find specified token in scene.")
-            sys.exit(1)
+        first_sample_token = args.token
+    print(f"Using token: '{first_sample_token}'.")
 
     #  render data
     if args.sensor_type == SENSOR_TYPE_CAMERA:
