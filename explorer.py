@@ -204,6 +204,7 @@ class CustomExplorer(NuScenesExplorer):
         axes.flatten()[-1].axis("off")
         plt.tight_layout()
         fig.subplots_adjust(wspace=0, hspace=0)
+        fig.canvas.set_window_title('Radar and Lidar')
 
         # Position the figure window at the specified position
         manager = plt.get_current_fig_manager()
@@ -259,6 +260,7 @@ class CustomExplorer(NuScenesExplorer):
         axes.flatten()[-1].axis("off")
         plt.tight_layout()
         fig.subplots_adjust(wspace=0, hspace=0)
+        fig.canvas.set_window_title('Cameras')
 
         if out_path is not None:
             plt.savefig(out_path)
