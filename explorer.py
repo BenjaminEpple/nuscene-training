@@ -156,8 +156,10 @@ class CustomExplorer(NuScenesExplorer):
         verbose: bool = True,
         show_panoptic: bool = False,
     ) -> None:
+
         record = self.nusc.get("sample", token)
-        camera_data, radar_data, lidar_data = self.split_radar_lidar_vision(record)
+        camera_data, lidar_data, radar_data = self.split_radar_lidar_vision(record)
+
         # Create plots.
         print(f"Found {len(radar_data)} radar plots")
         print(f"Found {len(lidar_data)} lidar plots")

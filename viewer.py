@@ -124,6 +124,16 @@ class Viewer:
         self.fig_left.canvas.draw()
 
 
+def get_next_sample_token(nusc, sample_token: str) -> Union[str, None]:
+    sample = nusc.get("sample", sample_token)
+    return sample.get("next", None)
+
+
+def get_previous_sample_token(nusc, sample_token: str) -> Union[str, None]:
+    sample = nusc.get("sample", sample_token)
+    return sample.get("previous", None)
+
+
 def get_screen_size() -> (int, int):
     root = tk.Tk()
     screen_width = root.winfo_screenwidth()
@@ -218,13 +228,3 @@ if __name__ == "__main__":
         explorer.render_cameras(first_sample_token, window_position)
     elif args.sensor_type == SENSOR_TYPE_LIDAR_RADAR:
         explorer.render_sample_lidar_radar(first_sample_token, window_position)
-
-
-def get_next_sample_token(nusc, sample_token: str) -> Union[str, None]:
-    sample = nusc.get("sample", sample_token)
-    return sample.get("next", None)
-
-
-def get_previous_sample_token(nusc, sample_token: str) -> Union[str, None]:
-    sample = nusc.get("sample", sample_token)
-    return sample.get("previous", None)
