@@ -32,11 +32,11 @@ def get_screen_size() -> (int, int):
 
 
 def get_right_hand_position(screen_width, screen_height):
-    return f"{int(screen_width /2)}x{int(screen_height/2)}+{int(screen_width /2)}+0"
+    return f"{int(screen_width /2 - 100)}x{int(screen_height/2)}+{int(screen_width /2 + 100)}+0"
 
 
 def get_left_hand_position(screen_width, screen_height):
-    return f"{int(screen_width /2)}x{int(screen_height/2)}+0+0"
+    return f"{int(screen_width /2) - 100}x{int(screen_height/2)}+0+0"
 
 
 def parse_args():
